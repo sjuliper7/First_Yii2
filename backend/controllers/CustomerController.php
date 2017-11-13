@@ -8,7 +8,7 @@ use backend\models\CustomersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Json;
 /**
  * CustomerController implements the CRUD actions for Customers model.
  */
@@ -63,15 +63,34 @@ class CustomerController extends Controller
      */
     public function actionCreate()
     {
+        //VarDumper::dump(Yii::$app->request->post());
         $model = new Customers();
+        if($model->load(Yii::$app->request->post())){
+            if (Yii::$app->request->isAjax){
+                $model->load(Yii::$app->request->post());
+                $model->save();
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->customers_id]);
-        } else {
-            return $this->render('create', [
+                return [
+                    'data' => Json::encode($model),
+                ];
+
+            }
+        }
+        else{
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
+
+       /* if ($model->load(Yii::$app->request->post()) && ) {
+            echo 'oke';
+            return $this->redirect(['view', 'id' => $model->customers_id]);
+        } else {
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+        }*/
     }
 
     /**

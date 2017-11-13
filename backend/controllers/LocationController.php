@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use app\models\Locations;
 use backend\models\CLocationsSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -61,6 +62,13 @@ class LocationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
+    public function actionGetCityProvince($zip_code){
+        //find the zip_code
+        $location = Locations::find()->where(['zip_code'=>$zip_code])->one();
+        echo Json::encode($location);
+    }
+
     public function actionCreate()
     {
         $model = new Locations();

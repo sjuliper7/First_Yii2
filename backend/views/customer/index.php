@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\CustomersSearch */
@@ -16,15 +18,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Customers', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Create Customers', ['value'=>Url::to('index.php?r=customer%2Fcreate'),'class' => 'btn btn-success' ,'id' => 'modelButton'])     ?>
     </p>
+</div>
+
+    <?php
+        Modal::begin([
+                'header' => '<h4>Customer</h4>',
+                'id' => 'modal',
+                'size' => 'model-lg',
+        ]);
+
+        echo '<div id="modalContent"></div>';
+        Modal::end();
+    ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+       // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'customers_id',
+
             'customer_name',
             'zip_code',
             'city',
