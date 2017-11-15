@@ -3,9 +3,14 @@
  */
 $(function () {
     $('#modelButton').click(function () {
-        //alert('something');
         $('#modal').modal('show')
            .find('#modalContent')
            .load($(this).attr('value'));
     });
 });
+
+/*$(function(){
+	$('#modalContent').click(function(){
+		alert('ada yang salah');
+	})
+});*/

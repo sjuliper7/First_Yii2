@@ -14,7 +14,8 @@ use kartik\select2\Select2;
 
 <div class="customers-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(
+    ); ?>
 
     <?= $form->field($model, 'customer_name')->textInput(['maxlength' => true]) ?>
 
